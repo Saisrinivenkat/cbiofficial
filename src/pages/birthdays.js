@@ -11,7 +11,7 @@ export default function Birthdays() {
   }
   const loadData = async()=>{
     try {
-      const res = await fetch('./api/data');
+      const res = await fetch('/.netlify/api/data');
       const people = await res.json();
       setPeople(people)
     } catch (error) {

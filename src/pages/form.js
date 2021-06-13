@@ -22,7 +22,8 @@ export default function Form() {
       } catch (error) {
         console.log(error)
       }
-      setImage(img.results[0].urls.small);
+      console.log(img.results[0].urls.small)
+      return img.results[0].urls.small;
     } 
 
   const save = async(e)=>{
@@ -33,17 +34,16 @@ export default function Form() {
       setError("Incorrect Name")
       return ;
     }
-       
-    fecthimg();
+    const img = fecthimg();
     const person ={
-      id: Date.now(),
+      id: String(Date.now()),
       name: name,
       dob:dob,
-      image:image
+      image:img
 
     }
     try {
-      const res = await fetch('/api/data',{
+      const res = await fetch('/.netlify/api/data',{
         method: 'POST',
         body: JSON.stringify( person )
       });
