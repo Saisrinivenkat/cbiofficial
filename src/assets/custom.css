@@ -1,5 +1,32 @@
+@font-face {
+  font-family: "BioRhyme";
+  src: url("./fonts/BioRhyme-Regular.ttf");
+}
+
 .grid-temp {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 0.3fr 3fr;
+}
+
+.cs-style {
+  opacity: 0;
+  transform: translateY(1rem);
+  animation: myine 500ms linear forwards;
+}
+
+.trans-cls {
+  transform-origin: top;
+  transition: all 500ms ease-in;
+}
+.flex-cls {
+  display: flex;
+}
+
+@keyframes myine {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    transform-origin: bottom;
+  }
 }

@@ -1,0 +1,11 @@
+###
+POST http://localhost:8888/api/data
+Content-Type: application/json
+
+{
+  "id":"20105225",
+  "name":"lingeswaran",
+  "dob":"1020112",
+  "image":"url(dasdhi)"
+}
+
