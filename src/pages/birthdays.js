@@ -23,7 +23,7 @@ export default function Birthdays() {
 
 
   return (
-    <main className="h-full bg-friends bg-center bg-cover flex items-center justify-center">
+    <main className="min-h-screen h-full bg-friends bg-center bg-cover flex items-center justify-center">
       <section className='m-6 py-8 px-8 max-w-sm bg-white shadow-2xl space-y-2 '>
         <h3 className="p-2 text-center text-indigo-500 font-bold text-xl border-2 bg-gray-200 cursor-pointer"> Birthdays </h3>
         <List data={people} />
