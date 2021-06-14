@@ -7,7 +7,7 @@ export default function List({data}) {
       {data.map((people) =>{
         const { id,name,dob,image } = people;
         return(
-          <article key={id} className="p-4 max-w-sm mx-auto flex items-center space-x-4">
+          <article key={id} className="p-2 max-w-sm mx-auto flex items-center space-x-4">
             <div className="flex-shrink-0 rounded-xl">
               <img src={image} className="h-10 w-10 md:h-14 md:14 rounded-full" alt={name} />
             </div>
