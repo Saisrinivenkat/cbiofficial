@@ -15,9 +15,9 @@ class Home extends React.Component{
           <Navbar/>
           <div className=" col-span-5">
             <div className="flex flex-col items-center justify-center h-full">
-              <h1 className="font-rhyme text-4xl font-bold text-gray-50 tracking-widest">CBI</h1>
+              <h1 className="font-rhyme text-4xl font-black text-green-300 tracking-widest ">CBI</h1>
               <h2 className="font-rhyme font-medium tracking-wider text-1xl text-white mt-6 cs-style" data-t="the notorious gang">THE NOTORIOUS GANG</h2>
-              <h2 className="font-rhyme font-medium text-1xl tracking-wider text-white mt-6 pb-10 cs-style">MANDA PATHIRAM</h2>
+              <h2 className="font-rhyme font-medium text-1xl tracking-wider text-green-300 mt-6 pb-10 cs-style">MANDA PATHIRAM</h2>
             </div>
           </div>
         </div>
@@ -50,8 +50,8 @@ function Navbar(){
       </div>
       <nav className="trans-cls">
         <ul className={`md:flex md:text-white md:flex-row justify-center flex-col  ${view}`}>
-          <li className="text-center text-2xl p-3 hover:bg-opacity-0 transition duration-300"><Link to="/" >Home</Link> </li>
-          <li className="text-center p-3 text-2xl hover:bg-opacity-0"><Link to="/bday" >Birthdays</Link> </li>
+          <li className="text-center text-2xl p-3 hover:bg-green-200 transition duration-300"><Link to="/" >Home</Link> </li>
+          <li className="text-center p-3 text-2xl hover:bg-indigo-300 transition duration-300"><Link to="/bday" >Birthdays</Link> </li>
         </ul>
       </nav>
     </header>

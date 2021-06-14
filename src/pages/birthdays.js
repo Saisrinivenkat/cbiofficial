@@ -1,17 +1,19 @@
 import React,{ useState,useEffect } from 'react';
 import List from '../components/list';
-import { Redirect,useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function Birthdays() {
+  useEffect(() => {
+    loadData()
+  }, [])
   const [people, setPeople] = useState([])
-  const [image, setImage] = useState("")
   const history = useHistory()
   const upload = () =>{
     return history.push('/upload')
   }
   const loadData = async()=>{
     try {
-      const res = await fetch('/.netlify/api/data');
+      const res = await fetch('/api/data');
       const people = await res.json();
       setPeople(people)
     } catch (error) {
@@ -19,9 +21,6 @@ export default function Birthdays() {
     }
   }
 
-  useEffect(() => {
-    loadData()
-  }, [])
 
   return (
     <main className="h-screen bg-friends bg-center bg-cover bg-no-repeat flex items-center justify-center">

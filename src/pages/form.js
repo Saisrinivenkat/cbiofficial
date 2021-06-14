@@ -1,12 +1,10 @@
 import React,{ useState } from 'react'
 import {useHistory} from 'react-router-dom'
-import data from '../assets/bdayData'
 
 
 export default function Form() {
   const [name, setName] = useState("") ;
   const [dob, setDob] = useState("");
-  const [image, setImage] = useState("");
   const [warn, setWarn] = useState("hidden")
   const [success, setSuccess] = useState("hidden")
   const [error, setError] = useState("Wrong Details")
@@ -17,24 +15,25 @@ export default function Form() {
   const fecthimg = async()=>{
       let img;
       try {
-        const results = await fetch("https://api.unsplash.com/search/photos?page=1&query=flowers&client_id=7L7YtljEENevbzklJHU0aSTXaj3Ihkxzhjdu4xb0vBQ")
+        const url = "https://api.unsplash.com/search/photos?page=1&query=flowers&client_id=7L7YtljEENevbzklJHU0aSTXaj3Ihkxzhjdu4xb0vBQ"
+        const results = await fetch(url)
         img = await results.json();
       } catch (error) {
         console.log(error)
       }
-      console.log(img.results[0].urls.small)
-      return img.results[0].urls.small;
+      const random = Math.floor(Math.random() * (9 - 0) + 0);
+      return img.results[random].urls.small;
     } 
-
-  const save = async(e)=>{
-    e.preventDefault();
-    if (name.length <= 4|| name.length >=20 || !name.match(/[^0-9]+$/i)) {
-      setWarn("block")
-      setSuccess("hidden")
-      setError("Incorrect Name")
-      return ;
-    }
-    const img = fecthimg();
+    
+    const save = async(e)=>{
+      e.preventDefault();
+      if (name.length <= 4|| name.length >=20 || !name.match(/[^0-9]+$/i)) {
+        setWarn("block")
+        setSuccess("hidden")
+        setError("Incorrect Name")
+        return ;
+      }
+      const img = await fecthimg();
     const person ={
       id: String(Date.now()),
       name: name,
@@ -43,11 +42,11 @@ export default function Form() {
 
     }
     try {
-      const res = await fetch('/.netlify/api/data',{
+      await fetch('/api/data',{
         method: 'POST',
         body: JSON.stringify( person )
       });
-      console.log(res)
+      
     } catch (error) {
       console.log(error)
     }
