@@ -42,7 +42,7 @@ export default function Form() {
 
     }
     try {
-      await fetch('/api/data',{
+      await fetch('/.netlify/functions/data',{
         method: 'POST',
         body: JSON.stringify( person )
       });
