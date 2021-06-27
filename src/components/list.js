@@ -13,7 +13,7 @@ export default function List({data}) {
             </div>
             <div>
               <h3 className="text-xs md:text-xl font-medium text-indigo-400 cursor-pointer">{name}</h3>
-              <p className="text-gray-500">{dob}</p>
+              <p className="text-xs md:text-base text-gray-500">{dob}</p>
             </div>
           </article>
         );
