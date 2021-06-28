@@ -34,7 +34,7 @@ const people = [
   'TamilKanal R',
   'Saisrinivasan V',
   'Sudharsan S',
-  'Thamaraiselvan ',
+  'Thamaraiselvan S',
   'Keerthirajan R',
   'Suresh A B',
 

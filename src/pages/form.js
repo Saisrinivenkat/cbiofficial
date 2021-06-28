@@ -32,15 +32,23 @@ function isPresent(people,_name){
   return false;
 }
 
+
 export default function Form( { user,refresh } ) {
   const [name, setName] = useState("") ;
   const [dob, setDob] = useState("");
+  const [upstate, setUpstate] = useState('Upload')
   const [warn, setWarn] = useState("hidden")
   const [success, setSuccess] = useState("hidden")
   const [error, setError] = useState("Wrong Details")
   const history = useHistory();
 
-
+  const changestate = (warn,sucess)=>{
+    setWarn(warn)
+    setSuccess(sucess)
+    setName("")
+    setDob("")
+    return;
+  }
   const goback = () =>{
     return history.push('/bday')
   }
@@ -49,37 +57,26 @@ export default function Form( { user,refresh } ) {
     const val = validate(name);
     const category = e.target.querySelector('#categ').value;
     if (val === false) {
-      setWarn("block")
-      setSuccess("hidden")
       setError("Incorrect Name")
-      setName("")
-      setDob("")
+      changestate('block','hidden')
       return ;
     }
     if( isPresent(user,val)){
-      setWarn("block")
-      setSuccess("hidden")
-      setName("")
-      setDob("")
       setError("User Already There");
+      changestate('block','hidden')
       return ;
     }
     if(category === ''){
-        setWarn("block")
-        setSuccess("hidden")
-        setError("Select Category for Profile")
-        setName("")
-        setDob("")  
-        return ;
-    }
-    if(dob === ''){
-      setWarn("block")
-      setSuccess("hidden")
-      setError("Select Dob")
-      setName("")
-      setDob("")  
+      setError("Select Category for Profile")
       return ;
     }
+    if(dob === ''){
+      changestate('block','hidden')
+      setError("Select Dob")
+      return ;
+    }
+    e.target.querySelector('#btn').disabled = true;
+    setUpstate('Uploading...');
     const unplash = `https://api.unsplash.com/photos/random/?query=${category}&client_id=${process.env.REACT_APP_UNSPLASH}`;
     const res = await fetch(unplash);
     const img = await res.json();
@@ -100,12 +97,11 @@ export default function Form( { user,refresh } ) {
       setWarn("block")
       return;
     }
-
-    setName("")
-    setDob("")
+    
+    changestate('hidden','block')
     refresh();
-    setWarn("hidden")
-    setSuccess("block")
+    e.target.querySelector('#btn').disabled = false;
+    setUpstate('Upload');
   }
 
   return (
@@ -140,7 +136,7 @@ export default function Form( { user,refresh } ) {
         </select>
 
         <div className="flex">
-          <button className="mr-2 border-2 border-gray-500 hover:border-indigo-500 w-full p-2rounded-sm" type="submit">Upload</button>
+          <button id="btn" className="mr-2 border-2 border-gray-500 hover:border-indigo-500 w-full p-2rounded-sm" type="submit">{upstate}</button>
           <button className=" border-2 border-gray-500 hover:border-indigo-500 w-full p-2 rounded-sm " onClick={goback}>Go Back</button>
         </div>
         <div className={`${warn} text-red-700 text-md font-medium mt-2 text-center`}>{error}</div>
