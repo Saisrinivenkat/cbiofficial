@@ -1,0 +1,7 @@
+POST http://localhost:5020/imgs
+
+Content-Type: "application/json"
+
+{
+  "Name": "Saisrini"
+}

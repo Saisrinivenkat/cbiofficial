@@ -12,9 +12,9 @@ function App() {
 
   const fetchusers = async ()=>{
     try {
-      const res =  await fetch(process.env.REACT_APP_GET);
-      const people =  await res.json();
-      setUser(people)
+      // const res =  await fetch(process.env.REACT_APP_GET);
+      // const people =  await res.json();
+      // setUser(people)
     } catch (error) {
       console.log(error)
     }

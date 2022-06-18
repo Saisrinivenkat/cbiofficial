@@ -1,0 +1,36 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-imagesaver-dev-170156-authRole",
+      "UnauthRoleArn": "arn:aws:iam::896887802035:role/amplify-imagesaver-dev-170156-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::896887802035:role/amplify-imagesaver-dev-170156-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-imagesaver-dev-170156-deployment",
+      "UnauthRoleName": "amplify-imagesaver-dev-170156-unauthRole",
+      "StackName": "amplify-imagesaver-dev-170156",
+      "StackId": "arn:aws:cloudformation:ap-south-1:896887802035:stack/amplify-imagesaver-dev-170156/498734d0-dc1e-11ec-bf85-061c19c33cea",
+      "AmplifyAppId": "d32g4tx185nmvp"
+    }
+  },
+  "lambdaenv": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-imagesaver-lambdaenv-173012-authRole",
+      "UnauthRoleArn": "arn:aws:iam::896887802035:role/amplify-imagesaver-lambdaenv-173012-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::896887802035:role/amplify-imagesaver-lambdaenv-173012-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-imagesaver-lambdaenv-173012-deployment",
+      "UnauthRoleName": "amplify-imagesaver-lambdaenv-173012-unauthRole",
+      "StackName": "amplify-imagesaver-lambdaenv-173012",
+      "StackId": "arn:aws:cloudformation:ap-south-1:896887802035:stack/amplify-imagesaver-lambdaenv-173012/3bfe67d1-dc22-11ec-85bc-0241224ca968",
+      "AmplifyAppId": "d32g4tx185nmvp"
+    },
+    "categories": {
+      "function": {
+        "MyLambdaApi": {
+          "deploymentBucketName": "amplify-imagesaver-lambdaenv-173012-deployment",
+          "s3Key": "amplify-builds/MyLambdaApi-496f33765356765a544f-build.zip"
+        }
+      }
+    }
+  }
+}

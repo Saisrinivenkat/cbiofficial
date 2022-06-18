@@ -1,41 +1,35 @@
 import React,{ useState } from 'react'
 import {useHistory} from 'react-router-dom';
-import people from '../assets/validator.js';
 import Navbar from '../components/Navbar.js';
-
-const getname = (name) =>{
-  name = name.toLowerCase();
-  name = name.split(' ');
-  name = name.sort((a,b)=>{ return b.length - a.length });
-  return name[0];
-}
-
-
-function validate(_name){
-  if(_name.length <= 4 || _name.length >=20 || !_name.match(/[^0-9]+$/i)) return false;
-  _name = getname(_name)
-
-  for (let i = 0; i < people.length; i++) {
-    const name =  getname(people[i]);
-    if(name.includes(_name)){
-      return people[i];
-    }
-    
-  }
-  return false;
-}
-function isPresent(people,_name){
-  for (let i = 0; i < people.length; i++) {
-      if(people[i].name === _name) return true;
-    
-  }
-  return false;
-}
-
+import { validate,isPresent } from "./helpers";
+import { API } from "aws-amplify";
+ 
 
 export default function Form( { user,refresh } ) {
+
+  async function postImages(){
+    const formData = new FormData();
+    formData.append("image", file)
+    formData.append("description", name)
+    API.post("myimageapi","/image",{body:formData})
+    // fetch("http://localhost:3000/image",{
+    //   method:"POST",
+    //   body:formData})
+      .then(res => {
+        setSuccess(res)
+        console.log(`Response ${res}`);
+        return res.body
+      })
+      .catch(error => {
+        console.log(`Error ${error.response}`);
+      })
+
+  }
+
   const [name, setName] = useState("") ;
   const [dob, setDob] = useState("");
+  const [description, setDescription] = useState("")
+  const [file,setFile] = useState("")
   const [upstate, setUpstate] = useState('Upload')
   const [warn, setWarn] = useState("hidden")
   const [success, setSuccess] = useState("hidden")
@@ -44,53 +38,46 @@ export default function Form( { user,refresh } ) {
 
   const changestate = (warn,sucess)=>{
     setWarn(warn)
-    setSuccess(sucess)
+    // setSuccess(sucess)
     setName("")
     setDob("")
     return;
   }
+
+  const fileSelected = event => {
+    const file = event.target.files[0]
+		setFile(file)
+	}
+
   const goback = () =>{
     return history.push('/bday')
   }
   const save = async(e)=>{
     e.preventDefault();
-    const val = validate(name);
-    const category = e.target.querySelector('#categ').value;
-    if (val === false) {
-      setError("Incorrect Name")
-      changestate('block','hidden')
-      return ;
-    }
-    if( isPresent(user,val)){
-      setError("User Already There");
-      changestate('block','hidden')
-      return ;
-    }
-    if(category === ''){
-      setError("Select Category for Profile")
-      return ;
-    }
-    if(dob === ''){
-      changestate('block','hidden')
-      setError("Select Dob")
-      return ;
-    }
-    e.target.querySelector('#btn').disabled = true;
-    setUpstate('Uploading...');
-    const unplash = `https://api.unsplash.com/photos/random/?query=${category}&client_id=${process.env.REACT_APP_UNSPLASH}`;
-    const res = await fetch(unplash);
-    const img = await res.json();
-    const person ={
-      id: String(Date.now()),
-      name: val,
-      dob:dob,
-      image:img.urls.small
-    }
+    // const val = validate(name);
+    // const category = e.target.querySelector('#categ').value;
+    // if (val === false) {
+    //   setError("Incorrect Name")
+    //   changestate('block','hidden')
+    //   return ;
+    // }
+    // if( isPresent(user,val)){
+    //   setError("User Already There");
+    //   changestate('block','hidden')
+    //   return ;
+    // }
+    // if(category === ''){
+    //   setError("Select Category for Profile")
+    //   return ;
+    // }
+    // if(dob === ''){
+    //   changestate('block','hidden')
+    //   setError("Select Dob")
+    //   return ;
+    // }
+    
     try {
-      await fetch(process.env.REACT_APP_POST,{
-        method: 'POST',
-        body: JSON.stringify( person )
-      });
+      const rslt = await postImages();
       
     } catch (error) {
       console.log(error)
@@ -98,10 +85,10 @@ export default function Form( { user,refresh } ) {
       return;
     }
     
-    changestate('hidden','block')
-    refresh();
-    e.target.querySelector('#btn').disabled = false;
-    setUpstate('Upload');
+    // changestate('hidden','block')
+    // refresh();
+    // e.target.querySelector('#btn').disabled = false;
+    // setUpstate('Upload');
   }
 
   return (
@@ -128,12 +115,8 @@ export default function Form( { user,refresh } ) {
           value={dob}
           onChange={(e)=>setDob(e.target.value)}
         />
-        <select name="catgeory" id="categ"  className="border-b-2 border-pink-300 p-2 my-4 font-mono">
-          <option value=''>Select Category</option>
-          <option value='cat'>Cat</option>
-          <option value='dog'>Dog</option>
-          <option value='flower'>Flower</option>
-        </select>
+       <input  className="border-b-2 border-pink-300 p-2 my-4 font-mono" onChange={fileSelected} type="file" accept="image/*"></input>
+       <input value={description} onChange={e => setDescription(e.target.value)} type="text"></input>
 
         <div className="flex">
           <button id="btn" className="mr-2 border-2 border-gray-500 hover:border-indigo-500 w-full p-2rounded-sm" type="submit">{upstate}</button>
@@ -145,3 +128,5 @@ export default function Form( { user,refresh } ) {
     </div>
   )
 }
+
+
